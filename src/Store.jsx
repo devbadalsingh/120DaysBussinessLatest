@@ -5,6 +5,7 @@ const Store = devtools((set, get) => ({
   login: false,
   employeeDetails: null,
   empInfo: null,
+  activeRole:'admin',
   applicationProfile: null,
   lead:null,
   setLogin: (payload) => {

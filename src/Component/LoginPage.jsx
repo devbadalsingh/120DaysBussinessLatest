@@ -44,7 +44,7 @@ const LoginPage = () => {
     if (loginSuccess) {
       setLogin(true);
       setEmpInfo(loginData);
-      // setActiveRole(loginData?.empRole[0]);
+      setActiveRole("admin");
       navigate('/');
     }
   }, [loginSuccess, loginData]);

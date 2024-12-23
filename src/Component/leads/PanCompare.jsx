@@ -36,17 +36,6 @@ const PanCompare = ({ open, setOpen, panDetails }) => {
       return compareDates(value1, value2) ? "Matched" : "Unmatched";
     }
 
-    // if (value1 instanceof Date && value2 instanceof Date) {
-    //   const year1 = value1.getFullYear();
-    //   const month1 = value1.getMonth();
-    //   const day1 = value1.getDate();
-
-    //   const year2 = value2.getFullYear();
-    //   const month2 = value2.getMonth();
-    //   const day2 = value2.getDate();
-
-    //   return year1 === year2 && month1 === month2 && day1 === day2 ? "Matched" : "Unmatched";
-    // }
 
 
     if (typeof value1 === "string" && typeof value2 === "string") {
@@ -60,10 +49,23 @@ const PanCompare = ({ open, setOpen, panDetails }) => {
   const getTextColor = (result) => (result === "Matched" ? "#00796b" : "#d32f2f");
 
   // Fields to be compared
-  const comparisonFields = [
-    { label: "Name", leadValue: `${lead?.fName}${lead?.mName ? ` ${lead?.mName}` : ""} ${lead?.lName}`, panValue: panDetails?.fullname },
-    { label: "DOB", leadValue:lead?.dob && formatDate(lead?.dob), panValue: panDetails?.dob  },
-  ];
+  const getComparisonFields = (lead,panDetails)=> {
+    const {building_name,city,country,street_name,state,pincode} = panDetails?.address
+
+    const formatAddress = (...parts) => parts.filter(Boolean).join(", "); // Join only non-empty values with commas
+  
+    // Construct the PAN address
+    const panAddress = formatAddress(building_name, street_name, city, state, country, pincode);
+  
+    const leadAddress = formatAddress(lead?.city, lead?.state, lead?.pinCode)
+
+    const comparisonFields = [
+      { label: "Name", leadValue: `${lead?.fullName ? ` ${lead?.fullName}` : ""}`, panValue: panDetails?.fullname },
+      { label: "Masked Aadhaar", leadValue:`XXXXXXXX${lead?.aadhaar.slice(-4)}` , panValue: panDetails?.aadhaar_number },
+      { label: "Address", leadValue:leadAddress , panValue: panAddress },
+    ];
+    return comparisonFields
+  }
   const handleClose = () => {
     setOpen(false);
   };
@@ -148,7 +150,7 @@ const PanCompare = ({ open, setOpen, panDetails }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {comparisonFields.map(({ label, leadValue, panValue }) => {
+                {getComparisonFields(lead,panDetails).map(({ label, leadValue, panValue }) => {
                   const result = compareValues(label, leadValue, panValue);
                   const textColor = getTextColor(result);
 

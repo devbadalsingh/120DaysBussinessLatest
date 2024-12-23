@@ -10,7 +10,6 @@ import Sidebar from "./Navbar/Sidebar";
 import { useEffect, useState } from "react";
 import ForgotPasswordPage from "./Component/ForgotPasswordPage";
 import ResetPasswordPage from "./Component/ResetPasswordPage";
-import UserProfileForm from "./Component/UserProfileForm";
 import LeadNew from "./SubComponent/LeadNew";
 import ProtectedRoute from "./Component/ProtectedRoute";
 import LeadProfile from "./page/LeadProfile";
@@ -51,10 +50,6 @@ function App() {
                                 <Routes>
                                     {/* <Route path='/' element={<ProtectedRoute><Dashboard /></ProtectedRoute>}> */}
                                     <Route path="/" element={<Dashboard />} />
-                                    <Route
-                                        path="/user-profile"
-                                        element={<UserProfileForm />}
-                                    />
                                       <Route
                                         path="/lead-new"
                                         element={<LeadNew />}

@@ -4,7 +4,7 @@ import { persist } from "zustand/middleware"
 const authStore = persist(
     (set) => ({
         empInfo:null,
-        activeRole:'admin',                                                                     
+        activeRole:null,                                                                     
         isLoggedIn: false,
         codeVerifier:null,
         fwdp:null,

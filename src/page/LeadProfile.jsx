@@ -24,17 +24,19 @@ const LeadProfile = () => {
     const { data: leadData, isSuccess: leadSuccess, isError, error } = useFetchSingleLeadQuery(id, { skip: id === null });
 
     useEffect(() => {
-        if (leadSuccess) {
-            setLead(leadData)
+        if (leadSuccess && leadData) {
+            console.log("set lead",leadData)
+            setLead(leadData?.lead)
         }
 
     }, [leadSuccess, leadData])
+
 
     return (
         <div className="crm-container">
 
             {leadEdit ? (
-                <LeadDetails leadData={leadData} setLeadEdit={setLeadEdit} />
+                <LeadDetails leadData={leadData?.lead} setLeadEdit={setLeadEdit} />
             ) : (
                 <>
                     <div className="p-3">
@@ -77,7 +79,7 @@ const LeadProfile = () => {
                                             {error?.data?.message}
                                         </Alert>
                                     }
-                                    {( activeRole !== "admin") && <Box display="flex" justifyContent="flex-end" sx={{ my: 2 }}>
+                                    { <Box display="flex" justifyContent="flex-end" sx={{ my: 2 }}>
                                         <Button
                                             variant="outlined"
                                             onClick={() => setLeadEdit(true)}
@@ -96,14 +98,13 @@ const LeadProfile = () => {
                                 </Paper>
                             </>
                         }
-                        {leadData?._id &&
+                        {leadData?.lead?._id &&
                             <>
                                 {currentPage === "verification" &&
-                                    <VerifyContactDetails
-                                    isAadhaarVerified={leadData?.isAadhaarVerified}
-                                    isAadhaarDetailsSaved={leadData?.isAadhaarDetailsSaved}
-                                    isPanVerified={leadData?.isPanVerified}
-                                    lead={leadData}
+                                    <VerifyContactDetails 
+                                    isPanVerified={leadData?.lead?.isPanVerified}
+                                    isAadhaarVerified={leadData?.lead?.isAadhaarVerified}
+                                    isAadhaarDetailsSaved={leadData?.lead?.isAadhaarDetailsSaved}
                                     />
                                 }
 

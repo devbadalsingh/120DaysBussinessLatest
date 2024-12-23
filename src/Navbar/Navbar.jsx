@@ -25,6 +25,8 @@ const Navbar = () => {
     const { setEmployeeDetails } = useStore();
     const { setLogin, setEmpInfo, empInfo, activeRole, setActiveRole } =
         useAuthStore();
+
+        console.log('active role',activeRole)
     // const [currentActiveRole, setCurrentActiveRole] = useState(activeRole)
 
     const [logout, { isSuccess, isError, error }] = useLogoutMutation();
@@ -51,7 +53,7 @@ const Navbar = () => {
             confirmButtonText: "Yes, switch role",
         }).then((result) => {
             if (result.isConfirmed) {
-                setActiveRole(selectedRole); // Set the new active role
+                // setActiveRole(selectedRole); // Set the new active role
                 navigate("/"); // Navigate to the desired page
             }
         });
@@ -74,6 +76,7 @@ const Navbar = () => {
     useEffect(() => {
         if (isSuccess) {
             setLogin(false);
+            setActiveRole(null)
             setEmpInfo(null);
             setEmployeeDetails(null);
             navigate("/login");

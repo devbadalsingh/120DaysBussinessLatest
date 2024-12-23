@@ -28,7 +28,7 @@ const LeadDetails = ({ leadData, setLeadEdit }) => {
   const [updateLead, { data, isSuccess, isError, error }] = useUpdateLeadMutation();
 
   const { handleSubmit, control, setValue } = useForm({
-    resolver: yupResolver(leadUpdateSchema),
+    // resolver: yupResolver(leadUpdateSchema),
     defaultValues: leadData,
     mode: 'onBlur',
     reValidateMode: 'onChange',
@@ -69,14 +69,14 @@ const LeadDetails = ({ leadData, setLeadEdit }) => {
       >
         <Box sx={{ flex: '1 1 45%' }}>
           <Controller
-            name="fName"
+            name="fullName"
             control={control}
             render={({ field, fieldState }) => (
               <TextField
                 {...field}
                 required
                 fullWidth
-                label="First Name"
+                label="fullName"
                 variant="outlined"
                 error={!!fieldState.error}
                 helperText={fieldState.error ? fieldState.error.message : ''}
@@ -87,59 +87,24 @@ const LeadDetails = ({ leadData, setLeadEdit }) => {
 
         <Box sx={{ flex: '1 1 45%' }}>
           <Controller
-            name="mName"
+            name="businessName"
             control={control}
             render={({ field }) => (
               <TextField
                 {...field}
                 fullWidth
-                label="Middle Name"
+                label="Business Name"
                 variant="outlined"
               />
             )}
           />
         </Box>
 
-        <Box sx={{ flex: '1 1 45%' }}>
-          <Controller
-            name="lName"
-            control={control}
-            render={({ field, fieldState }) => (
-              <TextField
-                {...field}
-                required
-                fullWidth
-                label="Last Name"
-                variant="outlined"
-                error={!!fieldState.error}
-                helperText={fieldState.error ? fieldState.error.message : ''}
-              />
-            )}
-          />
-        </Box>
+        
 
-        <Box sx={{ flex: '1 1 45%' }}>
-          <Controller
-            name="gender"
-            control={control}
-            render={({ field, fieldState }) => (
-              <FormControl variant="outlined" fullWidth required error={!!fieldState.error}>
-                <InputLabel htmlFor="gender-select">Gender</InputLabel>
-                <Select
-                  {...field}
-                  input={<OutlinedInput label="Gender" id="gender-select" />}
-                >
-                  <MenuItem value="M">Male</MenuItem>
-                  <MenuItem value="F">Female</MenuItem>
-                </Select>
-                {fieldState.error && <Typography color="error">{fieldState.error.message}</Typography>}
-              </FormControl>
-            )}
-          />
-        </Box>
-
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Box sx={{ flex: '1 1 45%', width: '100%' }} fullWidth> {/* Ensure the box takes full width */}
+    
+        {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Box sx={{ flex: '1 1 45%', width: '100%' }} fullWidth> 
             <Controller
               name="dob"
               control={control}
@@ -166,7 +131,7 @@ const LeadDetails = ({ leadData, setLeadEdit }) => {
               )}
             />
           </Box>
-        </LocalizationProvider>
+        </LocalizationProvider> */}
 
         <Box sx={{ flex: '1 1 45%' }}>
           <Controller
@@ -222,22 +187,7 @@ const LeadDetails = ({ leadData, setLeadEdit }) => {
           />
         </Box>
 
-        <Box sx={{ flex: '1 1 45%' }}>
-          <Controller
-            name="alternateMobile"
-            control={control}
-            render={({ field, fieldState }) => (
-              <TextField
-                {...field}
-                fullWidth
-                label="Alternate Mobile"
-                variant="outlined"
-                error={!!fieldState.error}
-                helperText={fieldState.error ? fieldState.error.message : ''}
-              />
-            )}
-          />
-        </Box>
+      
 
         <Box sx={{ flex: '1 1 45%' }}>
           <Controller
@@ -249,24 +199,6 @@ const LeadDetails = ({ leadData, setLeadEdit }) => {
                 required
                 fullWidth
                 label="Personal Email"
-                variant="outlined"
-                error={!!fieldState.error}
-                helperText={fieldState.error ? fieldState.error.message : ''}
-              />
-            )}
-          />
-        </Box>
-
-        <Box sx={{ flex: '1 1 45%' }}>
-          <Controller
-            name="officeEmail"
-            control={control}
-            render={({ field, fieldState }) => (
-              <TextField
-                {...field}
-                required
-                fullWidth
-                label="Office Email"
                 variant="outlined"
                 error={!!fieldState.error}
                 helperText={fieldState.error ? fieldState.error.message : ''}
@@ -308,34 +240,56 @@ const LeadDetails = ({ leadData, setLeadEdit }) => {
 
         <Box sx={{ flex: '1 1 45%' }}>
           <Controller
-            name="salary"
+            name="propertyType"
             control={control}
             render={({ field, fieldState }) => (
               <TextField
                 {...field}
                 required
                 fullWidth
-                label="Salary"
-                type="number"
+                label="Property Type"
                 variant="outlined"
                 error={!!fieldState.error}
                 helperText={fieldState.error ? fieldState.error.message : ''}
-                InputProps={{
-                  min: 0, // Set the minimum value
-                  sx: {
-                    '& input[type=number]': {
-                      '-moz-appearance': 'textfield', // For Firefox
-                    },
-                    '& input[type=number]::-webkit-outer-spin-button, & input[type=number]::-webkit-inner-spin-button': {
-                      '-webkit-appearance': 'none', // For Chrome, Safari, Edge, and Opera
-                      margin: 0,
-                    },
-                  },
-                }}
               />
             )}
           />
         </Box>
+        <Box sx={{ flex: '1 1 45%' }}>
+          <Controller
+            name="turnover"
+            control={control}
+            render={({ field, fieldState }) => (
+              <TextField
+                {...field}
+                required
+                fullWidth
+                label="Turnover"
+                variant="outlined"
+                error={!!fieldState.error}
+                helperText={fieldState.error ? fieldState.error.message : ''}
+              />
+            )}
+          />
+        </Box>
+        <Box sx={{ flex: '1 1 45%' }}>
+          <Controller
+            name="gstNo"
+            control={control}
+            render={({ field, fieldState }) => (
+              <TextField
+                {...field}
+                required
+                fullWidth
+                label="GST Number"
+                variant="outlined"
+                error={!!fieldState.error}
+                helperText={fieldState.error ? fieldState.error.message : ''}
+              />
+            )}
+          />
+        </Box>
+
 
         <Box sx={{ flex: '1 1 45%' }}>
           <Controller

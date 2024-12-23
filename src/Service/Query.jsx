@@ -105,7 +105,7 @@ export const leadsApi = createApi({
     }),
     updateLead: builder.mutation({
       query: ({ id, formData }) => ({
-        url: `leads/update/${id}/?role=${role()}`,
+        url: `leads/update/${id}`,
         method: "PATCH",
         body: formData,
       }),
