@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {  Button, Paper, Box, Alert } from '@mui/material';
+import { Button, Paper, Box, Alert, CircularProgress } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { useFetchSingleLeadQuery, } from '../Service/Query';
+import { useFetchSingleLeadQuery, useForwardMutation, } from '../Service/Query';
 import LeadDetails from '../Component/LeadDetails';
 import VerifyContactDetails from '../Component/leads/DetailsVerification';
 import useStore from '../Store';
@@ -14,18 +14,21 @@ const barButtonOptions = ['Lead', 'Verification',]
 
 const LeadProfile = () => {
     const { id } = useParams();
-    const {empInfo,activeRole} = useAuthStore()
     const [currentPage, setCurrentPage] = useState("lead");
-    const [uploadedDocs, setUploadedDocs] = useState([]); 
     const { setLead } = useStore()
     const [leadEdit, setLeadEdit] = useState(false);
 
 
     const { data: leadData, isSuccess: leadSuccess, isError, error } = useFetchSingleLeadQuery(id, { skip: id === null });
+    const [forward, { data, isLoading, isSuccess, isError: isForwardError, error: forwardError }] = useForwardMutation()
 
+
+    const sendDataToAllcloud = () => {
+        forward(id)
+    }
     useEffect(() => {
         if (leadSuccess && leadData) {
-            console.log("set lead",leadData)
+            console.log("set lead", leadData)
             setLead(leadData?.lead)
         }
 
@@ -79,7 +82,7 @@ const LeadProfile = () => {
                                             {error?.data?.message}
                                         </Alert>
                                     }
-                                    { <Box display="flex" justifyContent="flex-end" sx={{ my: 2 }}>
+                                    {<Box display="flex" justifyContent="flex-end" sx={{ my: 2 }}>
                                         <Button
                                             variant="outlined"
                                             onClick={() => setLeadEdit(true)}
@@ -96,15 +99,31 @@ const LeadProfile = () => {
                                         </Button>
                                     </Box>}
                                 </Paper>
+                                {<Box display="flex" justifyContent="flex-end" sx={{ my: 2 }}>
+                                    <Button
+                                        // variant="outlined"
+                                        onClick={() => sendDataToAllcloud()}
+                                        sx={{
+                                            backgroundColor: (isLoading) ? "#f2c491" : "#f29d41",
+                                            color: (isLoading) ? "#666" : "white",
+                                            cursor: (isLoading) ? "not-allowed" : "pointer",
+                                            "&:hover": {
+                                              backgroundColor: "#f2c491",
+                                            },
+                                          }}
+                                    >
+                                        {(isLoading) ? <CircularProgress size={20} color="inherit" /> : "Forward"}
+                                    </Button>
+                                </Box>}
                             </>
                         }
                         {leadData?.lead?._id &&
                             <>
                                 {currentPage === "verification" &&
-                                    <VerifyContactDetails 
-                                    isPanVerified={leadData?.lead?.isPanVerified}
-                                    isAadhaarVerified={leadData?.lead?.isAadhaarVerified}
-                                    isAadhaarDetailsSaved={leadData?.lead?.isAadhaarDetailsSaved}
+                                    <VerifyContactDetails
+                                        isPanVerified={leadData?.lead?.isPanVerified}
+                                        isAadhaarVerified={leadData?.lead?.isAadhaarVerified}
+                                        isAadhaarDetailsSaved={leadData?.lead?.isAadhaarDetailsSaved}
                                     />
                                 }
 

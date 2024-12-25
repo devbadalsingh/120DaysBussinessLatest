@@ -77,9 +77,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
             <Box sx={{ marginTop: "0px", padding: isSidebarOpen ? 2 : 0 }}>
                 <List sx={{ padding: 0, margin: 0 }}>
-                    {(activeRole === "screener" ||
-                        activeRole === "admin" ||
-                        activeRole === "sanctionHead") && (
+                    
                         <Accordion
                             expanded={expanded === "lead"}
                             onChange={handleAccordionToggle("lead")}
@@ -138,16 +136,33 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                                             }}
                                         >
                                             <ListItemText
-                                                primary="New Lead"
+                                                primary="New Leads"
+                                                sx={{ color: "#fff" }}
+                                            />
+                                        </ListItem>
+                                        <List>
+                                        <ListItem
+                                            component={NavLink}
+                                            to="/forwarded-leads"
+                                            sx={{
+                                                color: "#fff",
+                                                textDecoration: "none",
+                                                padding: "10px 15px",
+                                            }}
+                                        >
+                                            <ListItemText
+                                                primary="Forwarded Leads"
                                                 sx={{ color: "#fff" }}
                                             />
                                         </ListItem>
                                             
                                     </List>
+                                            
+                                    </List>
                                 </AccordionDetails>
                             </CSSTransition>
                         </Accordion>
-                    )}
+                    
 
                 </List>
             </Box>

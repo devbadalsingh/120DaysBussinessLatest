@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Accordion, AccordionSummary, AccordionDetails, Typography, Button, Box, CircularProgress } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Swal from 'sweetalert2';
-import { useGetEmailOtpMutation, useLazyAadhaarOtpQuery, useLazyCheckDetailsQuery, useLazyGenerateAadhaarLinkQuery, useLazyGetPanDetailsQuery } from '../../Service/Query';
+import { useLazyCheckDetailsQuery, useLazyGenerateAadhaarLinkQuery, useLazyGetPanDetailsQuery } from '../../Service/Query';
 import { useNavigate, useParams } from 'react-router-dom';
 import EmailVerification from './OtpVerification';
 import AadhaarOtpVerification from './AadhaarOtpVerification';
@@ -108,50 +108,8 @@ const VerifyContactDetails = ({ isMobileVerified, isEmailVerified, isAadhaarVeri
           </AccordionSummary>
           <AccordionDetails sx={{ backgroundColor: '#f5f5f5', borderRadius: '15px' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-              {/* Mobile Verification Section */}
-              {/* <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                <Typography variant="body1" sx={{ color: '#898b8c' }}>
-
-
-                  Mobile:<span style={{ color: isMobileVerified ? 'green' : 'red' }}> {isMobileVerified ? 'Verified' : 'Not Verified'}
-                  </span>
-                </Typography>
-                <Button
-                  variant="contained"
-                  onClick={handleMobileVerification}
-                  sx={{
-                    backgroundColor: isMobileVerified ? '#ccc' : '#4caf50',
-                    '&:hover': { backgroundColor: isMobileVerified ? '#ccc' : '#388e3c' },
-                    transition: 'background-color 0.3s'
-                  }}
-                  disabled={isMobileVerified}
-                >
-                  Verify Mobile
-                </Button>
-              </Box> */}
-
-              {/* Email Verification Section */}
-              {/* <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                <Typography variant="body1" sx={{ color: '#898b8c', }}>
-                  Email:
-                  <span style={{ color: isEmailVerified ? 'green' : 'red' }}>
-                    {isEmailVerified ? ' Verified' : ' Not Verified'}
-                  </span>
-                </Typography>
-
-                <Button
-                  variant="contained"
-                  onClick={handleEmailVerification}
-                  sx={{
-                    backgroundColor: isEmailVerified ? '#ccc' : '#4caf50',
-                    '&:hover': { backgroundColor: isEmailVerified ? '#ccc' : '#388e3c' },
-                    transition: 'background-color 0.3s'
-                  }}
-                  disabled={isEmailVerified} // Disable button if already verified
-                >
-                  Verify Email
-                </Button>
-              </Box> */}
+            
+        
               {/* Aadhaar Verification Section */}
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                 <Typography variant="body1" sx={{ color: '#898b8c' }}>

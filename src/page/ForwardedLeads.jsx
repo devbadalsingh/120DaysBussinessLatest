@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { DataGrid } from '@mui/x-data-grid';
-import {  useFetchAllLeadsQuery } from '../Service/Query';
+import { useForwardedLeadsQuery } from '../Service/Query';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Component/Header';
 import useAuthStore from '../Component/store/authStore';
 
-const LeadNew = () => {
+const ForwardedLeads = () => {
   const [leads, setLeads] = useState([]); // Stores lead details
   const [totalLeads, setTotalLeads] = useState(0); // Stores the total lead count
   const [page, setPage] = useState(1); // Current page
@@ -18,7 +18,7 @@ const LeadNew = () => {
   });
   const {empInfo,activeRole} = useAuthStore()
   const navigate = useNavigate()
-  const { data: allLeads, refetch } = useFetchAllLeadsQuery({page:paginationModel.page+1,limit:paginationModel.pageSize})
+  const { data: allLeads,isLoading,isSuccess,isError,error, refetch } = useForwardedLeadsQuery({page:paginationModel.page+1,limit:paginationModel.pageSize})
   const [id, setId] = useState(null)
   useEffect(() => {
     setLeads(allLeads);
@@ -184,4 +184,4 @@ const LeadNew = () => {
   );
 };
 
-export default LeadNew;
+export default ForwardedLeads;

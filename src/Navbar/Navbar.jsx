@@ -151,7 +151,7 @@ const Navbar = () => {
                         sx={{ m: 1, minWidth: 120 }}
                     >
                         {/* <InputLabel id="demo-simple-select-standard-label">Age</InputLabel> */}
-                        <Select
+                        {/* <Select
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
                             value={activeRole}
@@ -164,7 +164,7 @@ const Navbar = () => {
                                         {splitCamelCase(role)}
                                     </MenuItem>
                                 ))}
-                        </Select>
+                        </Select> */}
                     </FormControl>
 
                     <IconButton color="inherit" onClick={handleMenuClick}>

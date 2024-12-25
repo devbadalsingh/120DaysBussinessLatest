@@ -13,6 +13,7 @@ import ResetPasswordPage from "./Component/ResetPasswordPage";
 import LeadNew from "./SubComponent/LeadNew";
 import ProtectedRoute from "./Component/ProtectedRoute";
 import LeadProfile from "./page/LeadProfile";
+import ForwardedLeads from "./page/ForwardedLeads";
 
 function App() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -50,16 +51,20 @@ function App() {
                                 <Routes>
                                     {/* <Route path='/' element={<ProtectedRoute><Dashboard /></ProtectedRoute>}> */}
                                     <Route path="/" element={<Dashboard />} />
-                                      <Route
+                                    <Route
                                         path="/lead-new"
                                         element={<LeadNew />}
                                     />
                                     <Route
                                         path="/lead-profile/:id"
                                         element={<LeadProfile />}
-                                        />
+                                    />
+                                    <Route
+                                        path="/forwarded-leads"
+                                        element={<ForwardedLeads />}
+                                    />
 
-                                    
+
                                 </Routes>
                             </div>
                         </ProtectedRoute>
