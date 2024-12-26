@@ -24,7 +24,6 @@ const Dashboard = ({ isSidebarOpen }) => {
   // const { data}  = useGetLeadTotalRecordsQuery();
   // const { data: supData, isSuccess: supSuccess } = useGetTotalRecordsForSupervisorQuery();
 
-  console.log("The active log is ",activeRole);
 
    // Define Employee roles with icons and paths
    const Employee = {

@@ -23,7 +23,6 @@ const VerifyContactDetails = ({ isMobileVerified, isEmailVerified, isAadhaarVeri
   const [otpPan, setOtpPan] = useState(false)
   const [mobileVerified, setMobileVerified] = useState(false);
 
-  const [getEmailOtp, { data: emailOtp, isSuccess: emailOtpSuccess, isError: isEmailError, error: emailError }] = useGetEmailOtpMutation()
   const [checkDetails, { data: aadhaarDetails, isSuccess: aadhaarDetailsSuccess,isFetching:isAadhaarDetailsFetching, isLoading: aadhaarDetailsLoading, isError: isAadhaarDetailError, error: aadhaarDetailsError }] = useLazyCheckDetailsQuery()
   const [getPanDetails, panRes] = useLazyGetPanDetailsQuery()
   const [sendAadhaarLink, aadhaarRes] = useLazyGenerateAadhaarLinkQuery()
@@ -38,9 +37,6 @@ const VerifyContactDetails = ({ isMobileVerified, isEmailVerified, isAadhaarVeri
   };
 
 
-  const handleEmailVerification = () => {
-    getEmailOtp(id)
-  };
   const handlePanVerification = () => {
     getPanDetails(id)
   }
@@ -60,11 +56,7 @@ const VerifyContactDetails = ({ isMobileVerified, isEmailVerified, isAadhaarVeri
     }
   }, [panRes?.data, panRes?.isSuccess, panRes?.isFetching])
 
-  useEffect(() => {
-    if (emailOtpSuccess) {
-      setOtp(true)
-    }
-  }, [emailOtp, emailOtpSuccess])
+
   useEffect(() => {
     if (aadhaarRes?.isSuccess && aadhaarRes && !aadhaarRes?.isFetching) {
       Swal.fire({
@@ -186,9 +178,9 @@ const VerifyContactDetails = ({ isMobileVerified, isEmailVerified, isAadhaarVeri
                   {(panRes?.isLoading || panRes?.isFetching) ? <CircularProgress size={20} color="inherit" /> : `Verify Pan`}
                 </Button>}
               </Box>
-              {(panRes.isError || aadhaarRes.isError || isEmailError) && <Typography variant="body1">
+              {(panRes.isError || aadhaarRes.isError ) && <Typography variant="body1">
                 <span style={{ color: 'red' }}>
-                  {panRes?.error?.data?.message}  {aadhaarRes?.error?.data?.message}  {emailError?.data?.message}
+                  {panRes?.error?.data?.message}  {aadhaarRes?.error?.data?.message} 
                 </span>
               </Typography>}
 
